@@ -1,0 +1,6 @@
+Asset: og-image.png (1733 x 907 px, PNG, matches og:image:width/height in every page)
+Designed to match the v5 site: navy-ink background with a grid pattern, Archivo + IBM Plex type, signal-blue accent,
+and the home page's "One connected workflow" monitor. The text is taken from the site (hero headline, role, services, URL).
+Rendered from HTML with the site's own fonts, so there are no AI-generated artefacts or misspellings.
+Previous version: edited with an image-generation tool, 1.4 MB. New version: ~0.4 MB.
+After publishing, refresh link previews with LinkedIn Post Inspector / Facebook Sharing Debugger (they cache old images).

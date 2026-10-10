@@ -1,0 +1,445 @@
+[
+  {
+    "id": "y9t",
+    "no": "01",
+    "title": "Y9T End-of-Line Test Station",
+    "industry": "Manufacturing \u00b7 End-of-line QA",
+    "cats": [
+      "testing",
+      "automation",
+      "dotnet"
+    ],
+    "short": "Every Y9T unit needed a fast, consistent final check \u2014 with recorded results for each part.",
+    "problem": "Final verification of every Y9T unit had to be consistent, fast and fully traceable, with clear pass/fail records.",
+    "solution": "A turnkey station at the final verification zone. When a part is clamped, the software handshakes with the PLC, runs 14 parametric, resistance and sensor checks in parallel, applies a pass/fail matrix with auto-retest tolerance, prints a serialised QA label and logs every result against the production serial number.",
+    "flow": [
+      "Part clamped",
+      "PLC handshake",
+      "14 parallel checks",
+      "Pass / Fail",
+      "Label + SQL log"
+    ],
+    "features": [
+      "High-speed handshake with the line PLC to read sensor inputs on part clamp",
+      "Multithreaded WPF test sequencer running 14 parametric checks in parallel",
+      "Pass/fail decision matrix with auto-retest tolerance to avoid false rejects",
+      "Automatic serialised QA label printing and pneumatic pass/reject diversion"
+    ],
+    "hardware": [
+      "Siemens S7-1200 PLC",
+      "Pneumatic clamping cylinders",
+      "Analog load sensors (0\u201310 V)",
+      "Zebra thermal label printer"
+    ],
+    "software": [
+      "C# .NET 8 WPF",
+      "MVVM Community Toolkit",
+      "S7NetPlus PLC driver",
+      "SQL Server with local SQLite buffer"
+    ],
+    "tags": [
+      "C# / WPF",
+      "Siemens S7",
+      "EOL testing",
+      "SQL traceability"
+    ]
+  },
+  {
+    "id": "yg8",
+    "no": "02",
+    "title": "YG8 End-of-Line Quality & Safety Station",
+    "industry": "Manufacturing \u00b7 End-of-line QA",
+    "cats": [
+      "testing",
+      "automation",
+      "dotnet"
+    ],
+    "short": "Operators needed a fast inspection station that that checks station readiness before inspection.",
+    "problem": "The YG8 line needed a quick operator inspection station that could show interlock status before inspection, and that stayed readable on a high-glare shop floor.",
+    "solution": "A dedicated inspection station with dual-channel safety light curtains, pneumatic locks and a high-contrast touchscreen WPF interface. Seating-pressure curves are plotted live against threshold envelopes, and results are committed to SQL only after the physical interlock releases.",
+    "flow": [
+      "Light curtain state",
+      "PLC memory bits",
+      "Pressure curve check",
+      "Interlock release",
+      "SQL commit"
+    ],
+    "features": [
+      "Safety light-curtain state read directly from PLC memory bits",
+      "Touchscreen UI designed for high-glare shop-floor readability",
+      "Live seating-pressure curves with threshold envelopes",
+      "Database transaction committed only after the interlock releases"
+    ],
+    "hardware": [
+      "Mitsubishi FX5U PLC",
+      "Banner safety light curtains",
+      "Pressure transducers (4\u201320 mA)",
+      "21-inch industrial touch PC"
+    ],
+    "software": [
+      ".NET Framework 4.8 / WPF",
+      "MX Component PLC driver",
+      "OxyPlot real-time curves",
+      "Entity Framework Core"
+    ],
+    "tags": [
+      "WPF touchscreen",
+      "Mitsubishi PLC",
+      "Safety interlocks",
+      "Live charts"
+    ]
+  },
+  {
+    "id": "sms",
+    "no": "03",
+    "title": "Production Progress SMS Alerts",
+    "industry": "Manufacturing \u00b7 Plant operations",
+    "cats": [
+      "reporting",
+      "dotnet"
+    ],
+    "short": "Supervisors and maintenance learned about stoppages and missed targets too late \u2014 often only at shift end.",
+    "problem": "Shift supervisors and maintenance teams found out about line stoppages and missed hourly targets too late to act on them.",
+    "solution": "A Windows service that monitors line registers and databases, compares hourly progress with the schedule and sends SMS summaries through an industrial GSM modem to a tiered roster of managers, engineers and maintenance \u2014 with immediate alarms when downtime exceeds a threshold.",
+    "flow": [
+      "PLC / DB polling",
+      "Target vs actual",
+      "Rules & roster",
+      "GSM modem",
+      "SMS to team"
+    ],
+    "features": [
+      "Background service polling line databases and PLC state words",
+      "RS-232 AT-command handler with automatic baud negotiation and retry",
+      "Tiered recipient roster for managers, engineers and maintenance",
+      "Immediate alarm when downtime exceeds a set limit (e.g. 5 minutes)"
+    ],
+    "hardware": [
+      "Wavecom / Quectel GSM modem",
+      "Opto-isolated RS-232 to USB converter",
+      "Factory server workstation"
+    ],
+    "software": [
+      "C# Worker Service (.NET 8)",
+      "SerialPort stream handler",
+      "AT-command queue manager",
+      "SQLite alarm archive"
+    ],
+    "tags": [
+      "C# service",
+      "GSM / AT commands",
+      "SMS alerts",
+      "SQLite"
+    ]
+  },
+  {
+    "id": "email",
+    "no": "04",
+    "title": "Automated Shift Production Reports",
+    "industry": "Manufacturing \u00b7 Production reporting",
+    "cats": [
+      "reporting",
+      "dotnet"
+    ],
+    "short": "Daily output, scrap and OEE were logged by hand on paper, taking time and inviting errors.",
+    "problem": "Line output, scrap and downtime were recorded manually on paper every shift \u2014 slow, error-prone and hard to analyse.",
+    "solution": "A scheduled reporting service that runs at the end of each shift, aggregates production, scrap, downtime and station pace from SQL, calculates OEE, and emails multi-tab Excel workbooks and PDF summaries with charts \u2014 over authenticated SMTP with a backup relay.",
+    "flow": [
+      "Shift end",
+      "SQL aggregation",
+      "OEE calculation",
+      "Excel + PDF",
+      "Email delivery"
+    ],
+    "features": [
+      "Scheduler triggered at the end of each shift rotation",
+      "SQL aggregation of output vs scrap, downtime and station pace",
+      "Headless PDF summaries with embedded charts plus multi-tab Excel",
+      "TLS-authenticated SMTP with backup relay failover"
+    ],
+    "hardware": [
+      "Central plant database server",
+      "Virtual machine host"
+    ],
+    "software": [
+      "C# .NET scheduled service",
+      "EPPlus (Excel)",
+      "QuestPDF / iText",
+      "SQL Server stored procedures"
+    ],
+    "tags": [
+      "C# service",
+      "Excel & PDF",
+      "OEE",
+      "SMTP"
+    ]
+  },
+  {
+    "id": "magnatest",
+    "no": "05",
+    "title": "Magnatest-D Eddy-Current Sorting & Reporting",
+    "industry": "Automotive fasteners \u00b7 NDT",
+    "cats": [
+      "testing",
+      "automation",
+      "dotnet"
+    ],
+    "short": "Heat-treated fasteners needed individual hardness checks \u2014 sampling left gaps in inspection coverage.",
+    "problem": "Heat-treated automotive fasteners needed every part verified for hardness and permeability deviations; manual sampling left gaps.",
+    "solution": "An acquisition and sorting interface for FOERSTER Magnatest-D eddy-current instruments. It streams impedance vectors over RS-232, matches them against calibrated master-part tolerance curves, and fires pneumatic gates to route each part to OK, Re-treat or Scrap \u2014 with batch histograms for metallurgical tracking.",
+    "flow": [
+      "Photo-eye trigger",
+      "Magnatest-D (RS-232)",
+      "Impedance X/Y match",
+      "OK / Re-treat / Scrap",
+      "Batch log"
+    ],
+    "features": [
+      "Real-time RS-232 acquisition of impedance vectors (X, Y)",
+      "Elliptical tolerance matching against calibrated master parts",
+      "Pneumatic gate routing into OK, Re-treat or Scrap bins",
+      "Shift distribution histograms and batch tracking"
+    ],
+    "hardware": [
+      "FOERSTER Magnatest-D instrument",
+      "Induction test coil",
+      "High-speed solenoid sorting chute",
+      "Photoelectric trigger sensor"
+    ],
+    "software": [
+      "C# WPF operator interface",
+      "Impedance vector calculation engine",
+      "Fast COM-port buffer",
+      "SQL / MS Access history logger"
+    ],
+    "tags": [
+      "Eddy current NDT",
+      "RS-232",
+      "Auto sorting",
+      "C# WPF"
+    ]
+  },
+  {
+    "id": "andon",
+    "no": "06",
+    "title": "Andon Shop-Floor Visual Management",
+    "industry": "Manufacturing \u00b7 Shop floor",
+    "cats": [
+      "reporting",
+      "automation"
+    ],
+    "short": "Bottlenecks, stoppages and maintenance calls weren\u2019t visible to everyone on the floor in real time.",
+    "problem": "Line status, bottlenecks and maintenance calls were not visible to the whole floor as they happened, slowing the response.",
+    "solution": "Overhead 65-inch line displays showing live throughput, takt-time progress, Andon cord pulls and maintenance response timers \u2014 driven by a SignalR hub with colour-coded status and audible alarms for critical faults.",
+    "flow": [
+      "Andon buttons + PLC I/O",
+      "SignalR hub",
+      "Line displays",
+      "Audio alarms",
+      "Analytics DB"
+    ],
+    "features": [
+      "Distributed clients updated over SignalR / WebSockets",
+      "Colour-coded status: green normal, yellow warning, red stoppage",
+      "Audible alarm for critical faults",
+      "Takt-time progress synchronised with the assembly conveyor"
+    ],
+    "hardware": [
+      "65-inch industrial displays",
+      "Raspberry Pi / Intel NUC client nodes",
+      "Wireless Andon push-button stations"
+    ],
+    "software": [
+      "C# WPF full-screen client / web dashboard",
+      "ASP.NET Core SignalR hub",
+      "PLC digital I/O reader",
+      "PostgreSQL analytics database"
+    ],
+    "tags": [
+      "Andon",
+      "SignalR",
+      "Live dashboards",
+      "PLC I/O"
+    ]
+  },
+  {
+    "id": "fgscan",
+    "no": "07",
+    "title": "Finished-Goods Scan & Dispatch Confirmation",
+    "industry": "Manufacturing \u00b7 Packing & dispatch",
+    "cats": [
+      "rfid",
+      "automation",
+      "dotnet"
+    ],
+    "short": "Mismatched variants being packed together caused shipping errors and customer returns.",
+    "problem": "Mismatched part variants occasionally ended up in the same shipment, leading to packing errors and customer return claims.",
+    "solution": "A finished-goods checkpoint where a fixed-mount imager reads 2D DataMatrix/QR codes automatically, parses part number, lot and date, and confirms them against open SAP production orders. A pneumatic gate lock stops mismatched parts from entering the crate, and a local SQLite store keeps the station running if the network drops.",
+    "flow": [
+      "Proximity trigger",
+      "2D code read",
+      "Parse part / lot / date",
+      "SAP order check",
+      "Gate lock release"
+    ],
+    "features": [
+      "Fixed-mount imager triggered automatically by a proximity sensor",
+      "Parser for part numbers, supplier lot IDs and manufacturing dates",
+      "Quantity confirmation against the order before the box is sealed",
+      "Pneumatic gate lock blocks mismatched items from the crate"
+    ],
+    "hardware": [
+      "Datalogic Matrix 210N fixed scanner",
+      "Omron photo-eye",
+      "Pneumatic gate latch",
+      "Industrial touch panel"
+    ],
+    "software": [
+      "C# .NET WPF front end",
+      "REST API / SAP ERP connector",
+      "Local fail-safe SQLite store",
+      "TCP barcode socket listener"
+    ],
+    "tags": [
+      "2D DataMatrix",
+      "SAP handshake",
+      "Traceability",
+      "Pneumatic lock"
+    ]
+  },
+  {
+    "id": "rfid",
+    "no": "08",
+    "title": "High-Speed Conveyor RFID Encoding",
+    "industry": "Manufacturing \u00b7 Line traceability",
+    "cats": [
+      "rfid",
+      "automation",
+      "dotnet"
+    ],
+    "short": "Each pallet needed unique genealogy data written to its RFID tag \u2014 without slowing or stopping the conveyor.",
+    "problem": "Every pallet needed its component genealogy written to an RFID tag on the move, without stopping or slowing the conveyor.",
+    "solution": "An inline UHF RFID cell that uses rotary-encoder position to trigger the antenna, writes 96-bit EPC data to moving pallet tags, verifies each write by reading it back, and ejects pallets whose tags fail or respond with a weak signal.",
+    "flow": [
+      "Encoder position",
+      "Antenna trigger",
+      "EPC write (LLRP)",
+      "Read-back verify",
+      "Reject diverter"
+    ],
+    "features": [
+      "Rotary encoder pulses locate the pallet and trigger the antenna",
+      "LLRP commands write 96-bit EPC memory without stopping the line",
+      "Read-after-write verification before the pallet leaves the antenna field",
+      "Automatic rejection when a write fails or RSSI is too low"
+    ],
+    "hardware": [
+      "Zebra FX9600 4-port UHF reader",
+      "Far-field RFID antenna",
+      "Autonics incremental rotary encoder",
+      "SMC high-speed pneumatic ejector"
+    ],
+    "software": [
+      "C# LLRP reader interface",
+      "Multithreaded producer\u2013consumer queue",
+      "EPC hex encoding utilities",
+      "SQL part-genealogy database"
+    ],
+    "tags": [
+      "UHF RFID",
+      "LLRP",
+      "Encoder sync",
+      "C# concurrency"
+    ]
+  },
+  {
+    "id": "vision",
+    "no": "09",
+    "title": "Machine Vision Defect Inspection",
+    "industry": "Precision components \u00b7 Quality control",
+    "cats": [
+      "vision",
+      "testing",
+      "automation"
+    ],
+    "short": "Manual visual checks for burrs, scratches and missing O-rings were subjective and time-consuming.",
+    "problem": "Manual inspection for micro-burrs, scratches and missing O-rings was subjective, tiring and consumed many inspector hours.",
+    "solution": "An optical QC station with diffused and coaxial lighting and a 5 MP industrial camera, triggered by the PLC when the jig is seated. It measures diameters with sub-pixel edge detection, overlays defects on the operator screen and blows off rejects automatically.",
+    "flow": [
+      "Jig seated",
+      "PLC trigger",
+      "Camera capture",
+      "Edge & defect analysis",
+      "OK / Reject blow-off"
+    ],
+    "features": [
+      "Hardware trigger from the PLC when the jig is seated",
+      "Sub-pixel edge detection for inner/outer diameters against configured tolerances",
+      "Live defect overlay on the operator monitor",
+      "Automatic OK / defect sorting with pneumatic blow-off"
+    ],
+    "hardware": [
+      "Keyence / Cognex 5 MP GigE camera",
+      "Diffused ring and coaxial lighting",
+      "PLC hardware trigger",
+      "Dedicated vision PC"
+    ],
+    "software": [
+      "C# wrapper for vision tools",
+      "TCP/IP socket protocol",
+      "WPF defect display",
+      "High-throughput image archive"
+    ],
+    "tags": [
+      "Machine vision",
+      "Keyence / Cognex",
+      "Defect detection",
+      "WPF"
+    ]
+  },
+  {
+    "id": "gearbox",
+    "no": "10",
+    "title": "Gearbox Dynamic Test Bench",
+    "industry": "Gear assemblies \u00b7 Product testing",
+    "cats": [
+      "testing",
+      "automation",
+      "dotnet"
+    ],
+    "short": "Every gearbox needed a documented endurance and efficiency test, with safe shutdown if limits were exceeded.",
+    "problem": "Each gearbox needed a documented endurance and efficiency test, with protection against overheating or over-torque during the run.",
+    "solution": "An automated bench that ramps drive speed through a VFD, samples torque, RPM and bearing temperature over Modbus RTU, plots torque-vs-RPM curves live, and trips a safe shutdown with brake lock if thermal or torque limits are breached \u2014 then issues a PDF test certificate.",
+    "flow": [
+      "VFD speed ramp",
+      "Modbus RTU sampling",
+      "Torque vs RPM",
+      "Limit trips",
+      "PDF certificate"
+    ],
+    "features": [
+      "Continuous Modbus RTU polling of torque transducers and encoders",
+      "Automated motor speed ramp via VFD serial commands",
+      "Real-time torque-vs-RPM curves",
+      "Automatic shutdown and brake lock on thermal or torque trip"
+    ],
+    "hardware": [
+      "HBM torque flange sensor",
+      "ABB 7.5 kW VFD",
+      "PT100 temperature transmitters",
+      "High-resolution encoders"
+    ],
+    "software": [
+      "C# WPF (.NET 8)",
+      "SkiaSharp waveform rendering",
+      "Modbus RTU master",
+      "Automated PDF certificates"
+    ],
+    "tags": [
+      "Test bench",
+      "Modbus RTU",
+      "VFD control",
+      "Live charts"
+    ]
+  }
+]
